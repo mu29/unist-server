@@ -4,4 +4,6 @@ class Comment < ApplicationRecord
 
   has_one :articles_comment
   belongs_to :article, through: :articles_comment
+
+  validates_presence_of :contents
 end

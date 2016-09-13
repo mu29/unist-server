@@ -7,4 +7,6 @@ class Article < ApplicationRecord
 
   has_many :articles_categories
   has_many :categories, through: :articles_categories
+
+  validates_presence_of :title, :contents
 end
