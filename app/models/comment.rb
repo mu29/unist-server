@@ -1,9 +1,6 @@
 class Comment < ApplicationRecord
-  has_one :users_comment
-  belongs_to :user, through: :users_comment
+  belongs_to :user
+  belongs_to :article
 
-  has_one :articles_comment
-  belongs_to :article, through: :articles_comment
-
-  validates_presence_of :contents
+  validates_presence_of :content
 end

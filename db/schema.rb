@@ -10,31 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913062553) do
+ActiveRecord::Schema.define(version: 20160913061441) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
     t.string   "title"
     t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "articles_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "article_id"
-    t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["article_id"], name: "index_articles_categories_on_article_id", using: :btree
-    t.index ["category_id"], name: "index_articles_categories_on_category_id", using: :btree
-  end
-
-  create_table "articles_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "article_id"
-    t.integer  "comment_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_articles_comments_on_article_id", using: :btree
-    t.index ["comment_id"], name: "index_articles_comments_on_comment_id", using: :btree
+    t.index ["user_id"], name: "index_articles_on_user_id", using: :btree
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -44,9 +28,13 @@ ActiveRecord::Schema.define(version: 20160913062553) do
   end
 
   create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "contents"
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_comments_on_article_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -57,30 +45,7 @@ ActiveRecord::Schema.define(version: 20160913062553) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "users_articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "user_id"
-    t.integer  "article_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_users_articles_on_article_id", using: :btree
-    t.index ["user_id"], name: "index_users_articles_on_user_id", using: :btree
-  end
-
-  create_table "users_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "user_id"
-    t.integer  "comment_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["comment_id"], name: "index_users_comments_on_comment_id", using: :btree
-    t.index ["user_id"], name: "index_users_comments_on_user_id", using: :btree
-  end
-
-  add_foreign_key "articles_categories", "articles"
-  add_foreign_key "articles_categories", "categories"
-  add_foreign_key "articles_comments", "articles"
-  add_foreign_key "articles_comments", "comments"
-  add_foreign_key "users_articles", "articles"
-  add_foreign_key "users_articles", "users"
-  add_foreign_key "users_comments", "comments"
-  add_foreign_key "users_comments", "users"
+  add_foreign_key "articles", "users"
+  add_foreign_key "comments", "articles"
+  add_foreign_key "comments", "users"
 end
