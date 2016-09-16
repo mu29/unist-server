@@ -17,6 +17,9 @@ gem 'mysql2'
 
 gem 'jwt'
 
+gem 'interactor'
+gem 'interactor-rails'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
