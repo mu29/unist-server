@@ -10,15 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913061441) do
+ActiveRecord::Schema.define(version: 20160916083407) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.text     "content",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_articles_on_user_id", using: :btree
+  end
+
+  create_table "articles_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "article_id"
+    t.integer "category_id"
+    t.index ["article_id"], name: "index_articles_categories_on_article_id", using: :btree
+    t.index ["category_id"], name: "index_articles_categories_on_category_id", using: :btree
   end
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -30,9 +37,9 @@ ActiveRecord::Schema.define(version: 20160913061441) do
   create_table "comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
     t.integer  "article_id"
-    t.text     "content",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["article_id"], name: "index_comments_on_article_id", using: :btree
     t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
@@ -46,6 +53,8 @@ ActiveRecord::Schema.define(version: 20160913061441) do
   end
 
   add_foreign_key "articles", "users"
+  add_foreign_key "articles_categories", "articles"
+  add_foreign_key "articles_categories", "categories"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"
 end
