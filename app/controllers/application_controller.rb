@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   attr_reader :current_user
-  before_action :authenticate_request
+  before_action :verify_authenticate_token
 
   protected
 
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::API
 
   private
 
-  def authenticate_request
+  def verify_authenticate_token
     @current_user = AuthorizeApiRequest.call(request.headers).user
     render_error 'Unauthorized', :unauthorized unless @current_user
   end
