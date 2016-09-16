@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Article, :type => :model do
-  context '생성' do
+  context '유효성 검사' do
     before :each do
       @user = create(:user)
     end
@@ -18,6 +18,11 @@ RSpec.describe Article, :type => :model do
 
     it '내용 없는 경우 생성 불가' do
       article = @user.articles.build(title: Faker::Book.title)
+      expect(article.save).to eq false
+    end
+
+    it '작성자 없는 경우 생성 불가' do
+      article = Article.new(title: Faker::Book.title, content: Faker::Lorem.paragraph)
       expect(article.save).to eq false
     end
   end
