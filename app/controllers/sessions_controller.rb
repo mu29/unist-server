@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :verify_authenticate_token
+
   def create
     result = AuthenticateUser.call(session_params)
 
