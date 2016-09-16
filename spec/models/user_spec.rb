@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, :type => :model do
-  context '생성' do
+  context '유효성 검사' do
     before :each do
       @user = User.new
     end
@@ -29,6 +29,18 @@ RSpec.describe User, :type => :model do
       @user.email = Faker::Internet.email
       @user.password = Faker::Internet.password
       expect(@user.save).to eq false
+    end
+
+    it '메일주소 중복인 경우 생성 불가' do
+      user = create(:user)
+      user2 = build(:user, email: user.email)
+      expect(user2.save).to eq false
+    end
+
+    it '이름 중복인 경우 생성 불가' do
+      user = create(:user)
+      user2 = build(:user, name: user.name)
+      expect(user2.save).to eq false
     end
   end
 end
