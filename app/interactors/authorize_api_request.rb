@@ -2,7 +2,7 @@ class AuthorizeApiRequest
   include Interactor
 
   def call
-    user
+    context.user = user
   end
 
   private

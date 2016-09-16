@@ -2,7 +2,7 @@ class AuthenticateUser
   include Interactor
 
   def call
-    JsonWebToken.encode(user_id: user.id)
+    context.token = JsonWebToken.encode(user_id: user.id)
   end
 
   private
