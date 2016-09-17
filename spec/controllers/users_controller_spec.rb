@@ -8,17 +8,20 @@ RSpec.describe UsersController, type: :request do
         password: Faker::Internet.password,
         name: Faker::Name.name
       }
+    end
+
+    it '회원가입 후 메일 보내기' do
+      expect(UserMailer).to receive(:confirm_email).and_return(double(deliver_later: true))
       post '/users',
            params: { user: @user_params }
       expect(response).to be_success
     end
 
-    it '회원가입 후 메일 보내기' do
-      last_email = ActionMailer::Base.deliveries.last
-      expect(last_email.to).to eq [@user_params[:email]]
-    end
-
     it '회원가입 후 confirm_token 생성하기' do
+      post '/users',
+           params: { user: @user_params }
+      expect(response).to be_success
+
       user = User.last
       expect(user.confirm_token.present?).to eq true
     end
