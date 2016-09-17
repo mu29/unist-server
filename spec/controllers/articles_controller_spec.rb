@@ -31,6 +31,7 @@ RSpec.describe ArticlesController, type: :request do
     put "/articles/#{article.id}",
         params: { article: article_params },
         headers: @headers
+    article.reload
     expect(response).to be_success
     expect(article.title).to eq article_params[:title]
     expect(article.content).to eq article_params[:content]
@@ -48,6 +49,7 @@ RSpec.describe ArticlesController, type: :request do
     put "/articles/#{article.id}",
         params: { article: article_params },
         headers: @headers
+    article.reload
     expect(response).not_to be_success
   end
 
