@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = current_user.articles.bulid(article_params)
+    @article = current_user.articles.build(article_params)
 
     if @article.save
       render_success '성공적으로 작성하였습니다.'
