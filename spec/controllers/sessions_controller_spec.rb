@@ -4,7 +4,7 @@ RSpec.describe SessionsController, type: :request do
   describe '로그인' do
     before :each do
       @password = Faker::Internet.password
-      @user = create(:user, password: @password)
+      @user = create(:user, password: @password, confirmed: true)
     end
 
     it '메일 주소와 비밀번호가 일치하는 경우 성공' do
