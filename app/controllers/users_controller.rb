@@ -12,6 +12,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def confirm_email
+    user = User.find_by(confirm_token: params[:id])
+    if user && user.update(confirmed: true)
+      render_success '성공적으로 인증되었습니다.'
+    else
+      render_error '인증에 실패했습니다.'
+    end
+  end
+
   private
 
   def user_params
