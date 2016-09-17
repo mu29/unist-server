@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
+  include Authority::Controller
   attr_reader :current_user
+
   before_action :verify_authenticate_token
 
   protected
