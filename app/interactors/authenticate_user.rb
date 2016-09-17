@@ -9,10 +9,10 @@ class AuthenticateUser
 
   def user
     user = User.find_by(email: context.email)
-    if user && user.authenticate(context.password)
+    if user && user.authenticate(context.password) && user.confirmed
       user
     else
-      context.fail!(error: '아이디와 비밀번호를 확인해주세요.')
+      context.fail!(error: '아이디, 비밀번호, 메일 인증 여부를 확인해주세요.')
     end
   end
 end
