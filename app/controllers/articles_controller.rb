@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  authorize_actions_for Article
+
   skip_before_action :verify_authenticate_token, only: [:index]
   before_action :set_article, only: [:update, :destroy]
 
@@ -35,6 +37,7 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.find(params[:id])
+    authorize_action_for(@article)
   end
 
   def article_params
