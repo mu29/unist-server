@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    아래 링크를 클릭하여 회원가입을 완료하세요.
+    <%= confirm_email_user_url(@user.confirm_token) %>
+  </body>
+</html>
