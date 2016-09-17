@@ -8,7 +8,9 @@ class AuthorizeApiRequest
   private
 
   def user
-    User.find(decoded_auth_token[:user_id]) if decoded_auth_token
+    return unless decoded_auth_token
+    user = User.find(decoded_auth_token[:user_id])
+    user if user.confirmed
   end
 
   def decoded_auth_token
