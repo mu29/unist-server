@@ -5,7 +5,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render_success '회원가입에 성공하였습니다', {}, :created
+      UserMailer.confirm_email(@user).deliver
+      render_success '이메일 인증을 하시면 회원가입이 완료됩니다.', {}, :created
     else
       render_error @user.errors.full_messages.first
     end
