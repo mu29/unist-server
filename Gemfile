@@ -17,6 +17,8 @@ gem 'interactor'
 gem 'interactor-rails'
 
 gem 'authority'
+
+gem 'kaminari'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
