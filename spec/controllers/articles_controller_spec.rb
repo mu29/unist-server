@@ -7,6 +7,27 @@ RSpec.describe ArticlesController, type: :request do
     sign_in @user
   end
 
+  it '게시글 목록 받아오기' do
+    5.times { create(:article) }
+
+    get '/articles', headers: @headers
+    expect(response).to be_success
+
+    body = JSON.parse response.body
+    expect(body.size).to eq 5
+  end
+
+  it '게시글 읽기' do
+    article = create(:article)
+
+    get "/articles/#{article.id}", headers: @headers
+    expect(response).to be_success
+
+    body = JSON.parse response.body
+    expect(body['title']).to eq article.title
+    expect(body['content']).to eq article.content
+  end
+
   it '게시글 작성' do
     article_params = {
       title: Faker::Book.title,
