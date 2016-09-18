@@ -5,7 +5,9 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :destroy]
 
   def index
-    @articles = Article.order(:id).page(params[:page])
+    @articles = Article.with_category(params[:category])
+                       .order(:id)
+                       .page(params[:page])
   end
 
   def show
