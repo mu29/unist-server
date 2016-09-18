@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Category, :type => :model do
+RSpec.describe Category, type: :model do
   context '유효성 검사' do
     it '이름 있는 경우 생성 가능' do
       category = Category.new(name: Faker::Lorem.word)
