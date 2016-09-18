@@ -23,7 +23,7 @@ RSpec.describe CommentsController, type: :request do
     comment = create(:comment, user: @user)
     comment_params = { content: Faker::Lorem.paragraph }
 
-    put "articles/#{comment.article.id}/comments/#{comment.id}",
+    put "/articles/#{comment.article.id}/comments/#{comment.id}",
         params: { comment: comment_params },
         headers: @headers
     comment.reload
@@ -37,7 +37,7 @@ RSpec.describe CommentsController, type: :request do
     comment = create(:comment, user: @user)
     comment_params = { content: Faker::Lorem.paragraph }
 
-    put "articles/#{comment.article.id}/comments/#{comment.id}",
+    put "/articles/#{comment.article.id}/comments/#{comment.id}",
         params: { comment: comment_params },
         headers: @headers
     comment.reload
