@@ -5,6 +5,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:update, :destroy]
 
   def index
+    @articles = Article.order(:id).page(params[:page])
   end
 
   def create
