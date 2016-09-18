@@ -8,7 +8,7 @@ RSpec.describe ArticlesController, type: :request do
   end
 
   describe 'Actions' do
-    it '게시글 목록' do
+    it '게시글 목록 조회' do
       5.times { create(:article) }
 
       get '/articles', headers: @headers
