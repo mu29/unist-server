@@ -54,7 +54,7 @@ RSpec.describe CommentsController, type: :request do
     expect(response).to be_success
   end
 
-  it '타인의 게시글 삭제 불가' do
+  it '타인의 덧글 삭제 불가' do
     sign_in @other_user
 
     comment = create(:comment, user: @user)
