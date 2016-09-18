@@ -7,7 +7,7 @@ RSpec.describe ArticlesController, type: :request do
     sign_in @user
   end
 
-  describe 'Actions' do
+  context'Actions' do
     it '게시글 목록 조회' do
       5.times { create(:article) }
 
@@ -70,7 +70,50 @@ RSpec.describe ArticlesController, type: :request do
     end
   end
 
-  describe '권한' do
+  context '카테고리' do
+    before :each do
+      @article = create(:article, user: @user)
+      @category = Faker::Lorem.word
+      @article.category_list.add(@category)
+      @article.save
+    end
+
+    it '추가' do
+      category = Faker::Lorem.word
+
+      article_params = {
+        category_list: "#{@category}, #{category}"
+      }
+
+      put "/articles/#{@article.id}",
+          params: { article: article_params },
+          headers: @headers
+      @article.reload
+      expect(response).to be_success
+
+      expect(Article.with_category(category).size).to eq 1
+      expect(@article.categories.size).to eq 2
+      expect(@article.category_list.include?(category)).to eq true
+    end
+
+    it '삭제' do
+      article_params = {
+        category_list: ''
+      }
+
+      put "/articles/#{@article.id}",
+          params: { article: article_params },
+          headers: @headers
+      @article.reload
+      expect(response).to be_success
+
+      expect(Article.with_category(@category).size).to eq 0
+      expect(@article.categories.size).to eq 0
+      expect(@article.category_list.include?(@category)).to eq false
+    end
+  end
+
+  context '권한' do
     it '타인의 게시글 수정 불가' do
       sign_in @other_user
 
