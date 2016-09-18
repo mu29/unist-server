@@ -12,13 +12,17 @@ RSpec.describe CommentsController, type: :request do
     it '덧글 목록 조회' do
       5.times { create(:comment, article: @article) }
 
-      get "/articles/#{@article.id}/comments", headers: @headers
-
+      get "/articles/#{@article.id}", headers: @headers
       expect(response).to be_success
 
       body = JSON.parse response.body
-      byebug
       expect(body['comments_attributes'].size).to eq 5
+
+      get "/articles/#{@article.id}/comments", headers: @headers
+      expect(response).to be_success
+
+      body = JSON.parse response.body
+      expect(body.size).to eq 5
     end
 
     it '덧글 작성' do
