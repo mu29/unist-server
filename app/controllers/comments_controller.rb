@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  authorize_actions_for Comment
+
   before_action :set_article, only: [:index, :create]
   before_action :set_comment, only: [:update, :destroy]
 
@@ -40,6 +42,7 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = Comment.find(params[:id])
+    authorize_action_for(@comment)
   end
 
   def comment_params
