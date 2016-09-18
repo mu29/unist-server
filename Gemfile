@@ -17,6 +17,10 @@ gem 'interactor'
 gem 'interactor-rails'
 
 gem 'authority'
+
+gem 'kaminari'
+
+gem 'awesome_print'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

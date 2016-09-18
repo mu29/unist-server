@@ -4,6 +4,14 @@ class ApplicationController < ActionController::API
 
   before_action :verify_authenticate_token
 
+  def current_or_null_user
+    if current_user.nil?
+      User.new
+    else
+      current_user
+    end
+  end
+
   protected
 
   def render_success(message = '', options = {}, status = :ok)

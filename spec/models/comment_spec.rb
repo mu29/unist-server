@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Comment, :type => :model do
+RSpec.describe Comment, type: :model do
   context '유효성 검사' do
     before :each do
       @user = create(:user)
