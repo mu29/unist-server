@@ -26,4 +26,32 @@ RSpec.describe Article, type: :model do
       expect(article.save).to eq false
     end
   end
+
+  context '카테고리' do
+    before :each do
+      @article = create(:article)
+      @category = Faker::Lorem.word
+      @article.category_list.add(@category)
+      @article.save
+    end
+
+    it '추가' do
+      category = Faker::Lorem.word
+      @article.category_list.add(category)
+      @article.save
+
+      expect(Article.with_category(@category).size).to eq 1
+      expect(@article.categories.size).to eq 2
+      expect(@article.category_list.include?(category)).to eq true
+      expect(@article.categories.pluck(:name).include?(category)).to eq true
+    end
+
+    it '삭제' do
+      @article.category_list.remove(@category)
+      @article.save
+
+      expect(Article.with_category(@category).size).to eq 0
+      expect(@article.categories.size).to eq 0
+    end
+  end
 end
