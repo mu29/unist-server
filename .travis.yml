@@ -6,6 +6,8 @@ before_script:
   - sleep 10
   - cp config/database.yml.travis config/database.yml
   - mysql -e 'create database travis_ci_test;'
-  - bundle exec rake db:test:prepare
+  - bundle exec rails db:test:prepare
 addons:
   mariadb: '10.0'
+  code_climate:
+    repo_token: 17f721b63bc0bd7bb68b4f3533656e3b8d466930ce3f98fc0c8fc28c2e3ec973
