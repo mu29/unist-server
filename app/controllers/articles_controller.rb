@@ -2,10 +2,13 @@ class ArticlesController < ApplicationController
   authorize_actions_for Article
 
   skip_before_action :verify_authenticate_token, only: [:index]
-  before_action :set_article, only: [:update, :destroy]
+  before_action :set_article, only: [:show, :update, :destroy]
 
   def index
     @articles = Article.order(:id).page(params[:page])
+  end
+
+  def show
   end
 
   def create
