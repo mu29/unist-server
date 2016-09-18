@@ -18,6 +18,10 @@ class AuthorizeApiRequest
   end
 
   def http_auth_header
+    unless context.headers.key?('Authorization')
+      context.fail!(error: 'Missing authorization header')
+    end
+
     auth_header = context.headers['Authorization']
     if auth_header.present?
       auth_header.split(' ').last

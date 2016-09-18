@@ -5,5 +5,7 @@ Rails.application.routes.draw do
       get :confirm_email
     end
   end
-  resources :articles
+  resources :articles do
+    resources :comments
+  end
 end
