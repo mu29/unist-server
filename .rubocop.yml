@@ -7,8 +7,7 @@ AllCops:
     - 'tmp/**/*'
     - 'path/**/*'
     - 'bin/**/*'
-    - 'db/schema.rb'
-    - 'db/seeds.rb'
+    - 'db/**/*'
 
   TargetRubyVersion: 2.3
 
