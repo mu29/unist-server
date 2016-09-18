@@ -111,6 +111,30 @@ RSpec.describe ArticlesController, type: :request do
       expect(@article.categories.size).to eq 0
       expect(@article.category_list.include?(@category)).to eq false
     end
+
+    it '카테고리로 게시글 목록 조회' do
+      2.times do
+        article = create(:article)
+        article.category_list.add(@category)
+        article.save
+      end
+      5.times { create(:article) }
+
+      get '/articles',
+          headers: @headers
+      expect(response).to be_success
+
+      body = JSON.parse response.body
+      expect(body.size).to eq 8
+
+      get '/articles',
+          params: { category: @category },
+          headers: @headers
+      expect(response).to be_success
+
+      body = JSON.parse response.body
+      expect(body.size).to eq 3
+    end
   end
 
   context '권한' do
