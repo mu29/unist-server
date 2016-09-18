@@ -5,6 +5,11 @@ AllCops:
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
     - 'tmp/**/*'
+    - 'path/**/*'
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/seeds.rb'
+
   TargetRubyVersion: 2.3
 
 
@@ -15,6 +20,12 @@ Style/AsciiComments:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
   Enabled: false
 
 Metrics/LineLength:

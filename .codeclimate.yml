@@ -1,0 +1,25 @@
+engines:
+  rubocop:
+    enabled: true
+    #checks:
+    # Rubocop/Metrics/ClassLength:
+    #   enabled: false
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+ratings:
+  paths:
+  - app/**
+  - lib/**
+  - "**.rb"
+  - "**.go"
+exclude_paths:
+  - 'vendor/**/*'
+  - 'spec/fixtures/**/*'
+  - 'tmp/**/*'
+  - 'path/**/*'
+  - 'bin/**/*'
+  - 'db/schema.rb'
+  - 'db/seeds.rb'
